@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Delivery Instructions{% endblock %}
+{% block content %}
+  <h1>Delivery Instructions</h1>
+
+  {% if delivery.status == "completed" %}
+    <p>This delivery was already marked complete at
+      {{ delivery.completed_at.strftime("%Y-%m-%d %H:%M") }}.</p>
+  {% else %}
+    <p><strong>Courier:</strong> {{ delivery.courier or "—" }}</p>
+    <p><strong>Instructions:</strong></p>
+    <p>{{ delivery.instructions or "No specific instructions left." }}</p>
+
+    <form method="post" action="{{ url_for('driver.complete_delivery', token=delivery.token) }}">
+      <button class="btn" type="submit">Delivery Complete</button>
+    </form>
+  {% endif %}
+{% endblock %}

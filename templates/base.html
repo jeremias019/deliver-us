@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Safe and Sound{% endblock %}</title>
+  <!-- TODO (you): add your own stylesheet / styling here -->
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 480px; margin: 2rem auto; padding: 0 1rem; }
+    .btn { display: inline-block; padding: 0.75rem 1.5rem; background: #222; color: white;
+           border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; text-decoration: none; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid #ddd; font-size: 0.9rem; }
+    .status-pending { color: #b58900; }
+    .status-completed { color: #2a9d3d; }
+    input, textarea { width: 100%; padding: 0.5rem; margin-bottom: 1rem; box-sizing: border-box; }
+    label { font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>{% for m in messages %}<li>{{ m }}</li>{% endfor %}</ul>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</body>
+</html>

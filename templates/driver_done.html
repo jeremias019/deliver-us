@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Thank You{% endblock %}
+{% block content %}
+  <h1>Thank you!</h1>
+  <p>Delivery marked complete at {{ delivery.completed_at.strftime("%Y-%m-%d %H:%M") }}.</p>
+  <p>The recipient has been notified.</p>
+{% endblock %}

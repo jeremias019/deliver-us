@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Log a Delivery{% endblock %}
+{% block content %}
+  <h1>Log This Delivery</h1>
+  <p>Looks like this delivery wasn't pre-logged — no problem, just fill in a couple of details.</p>
+
+  <form method="post">
+    <label for="courier">Courier / Company</label>
+    <input type="text" id="courier" name="courier" placeholder="e.g. DPD, Evri">
+
+    <label for="note">Note (optional)</label>
+    <textarea id="note" name="note" rows="3" placeholder="Anything worth mentioning?"></textarea>
+
+    <button class="btn" type="submit">Continue</button>
+  </form>
+{% endblock %}

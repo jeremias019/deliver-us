@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}New Delivery{% endblock %}
+{% block content %}
+  <h1>New Expected Delivery</h1>
+  <p><a href="{{ url_for('admin.dashboard') }}">&larr; View dashboard</a></p>
+
+  <form method="post">
+    <label for="courier">Courier</label>
+    <input type="text" id="courier" name="courier" placeholder="e.g. Royal Mail, DPD">
+
+    <label for="expected_date">Expected date</label>
+    <input type="date" id="expected_date" name="expected_date">
+
+    <label for="instructions">Delivery instructions</label>
+    <textarea id="instructions" name="instructions" rows="4"
+      placeholder="e.g. Leave with neighbour at number 12 if no answer"></textarea>
+
+    <!-- TODO (you): add any other fields you want captured (parcel description, size, etc.) -->
+
+    <button class="btn" type="submit">Create &amp; Generate QR</button>
+  </form>
+{% endblock %}

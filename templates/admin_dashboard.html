@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+  <h1>Deliveries</h1>
+  <p>
+    <a class="btn" href="{{ url_for('admin.create') }}">+ New Delivery</a>
+    <a href="{{ url_for('admin.logout') }}" style="margin-left: 1rem;">Log out</a>
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Courier</th>
+        <th>Expected</th>
+        <th>Status</th>
+        <th>Source</th>
+        <th>Completed</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in deliveries %}
+        <tr>
+          <td>{{ d.courier or "—" }}</td>
+          <td>{{ d.expected_date or "—" }}</td>
+          <td class="status-{{ d.status }}">{{ d.status }}</td>
+          <td>{{ d.source }}</td>
+          <td>{{ d.completed_at.strftime("%Y-%m-%d %H:%M") if d.completed_at else "—" }}</td>
+          <td><a href="{{ url_for('admin.show_qr', token=d.token) }}">QR</a></td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6">No deliveries yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
