@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Static Door QR{% endblock %}
+{% block content %}
+  <h1>Permanent Door QR</h1>
+  <p>Print this once and leave it at the door. Drivers scan it when a
+     delivery wasn't pre-logged — it takes them to a short form, then
+     straight into the normal confirm/complete flow.</p>
+
+  <img src="{{ url_for('admin.static_qr_image') }}"
+       alt="Static QR code" style="width: 100%; max-width: 320px;">
+
+  <p style="word-break: break-all; font-size: 0.85rem; color: #555;">
+    {{ log_url }}
+  </p>
+
+  <!-- TODO (you): add print-friendly CSS (@media print) if you plan to print this page -->
+
+  <p><a href="{{ url_for('admin.dashboard') }}">&larr; Back to dashboard</a></p>
+{% endblock %}

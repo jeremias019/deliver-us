@@ -12,8 +12,7 @@ admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 
 # ---- Very basic session-based auth ----
-# TODO (you): replace with something more robust if this stays public-facing
-# long-term (e.g. Flask-Login, a proper user table, etc.)
+
 def login_required(view):
     @wraps(view)
     def wrapped(*args, **kwargs):
@@ -88,3 +87,24 @@ def dashboard():
     """History of all deliveries, pending and completed."""
     deliveries = Delivery.all_ordered()
     return render_template("admin_dashboard.html", deliveries=deliveries)
+
+
+@admin_bp.route("/qr/static")
+@login_required
+def show_static_qr():
+    """
+    Printable/mobile-friendly page for the ONE permanent door QR that points
+    at /log — used when a delivery wasn't pre-logged. This never changes,
+    so print it once and leave it up.
+    """
+    log_url = f"{current_app.config['BASE_URL']}/log"
+    return render_template("qr_static_display.html", log_url=log_url)
+
+
+@admin_bp.route("/qr/static.png")
+@login_required
+def static_qr_image():
+    """Raw PNG for the static /log QR code."""
+    log_url = f"{current_app.config['BASE_URL']}/log"
+    png_bytes = generate_qr_png(log_url)
+    return Response(png_bytes, mimetype="image/png")
