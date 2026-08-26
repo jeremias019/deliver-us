@@ -8,10 +8,13 @@ class Config:
 
     # --- Database ---
     # Local dev: plain SQLite file (default below).
-    # Production (Turso): set DATABASE_URL to something like
-    #   sqlite+libsql://<db-name>-<org>.turso.io/?authToken=<token>
+    # Production (Turso): set DATABASE_URL to the bare host, e.g.
+    #   sqlite+libsql://<db-name>-<org>.turso.io/?secure=true
+    # and set TURSO_AUTH_TOKEN separately (passed via connect_args in app.py,
+    # which is more reliable than embedding it in the URL query string).
     # Requires the sqlalchemy-libsql package (already in requirements.txt).
     DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///deliver-us.db")
+    TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "")
 
     # --- Telegram ---
     TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "")

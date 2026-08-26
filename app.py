@@ -12,6 +12,13 @@ def create_app(config_class=Config):
     app.config["SQLALCHEMY_DATABASE_URI"] = app.config["DATABASE_URL"]
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+    # Turso/libsql: pass the auth token explicitly via connect_args rather than
+    # relying on it being parsed correctly out of the URL query string.
+    if app.config["DATABASE_URL"].startswith("sqlite+libsql://") and app.config.get("TURSO_AUTH_TOKEN"):
+        app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+            "connect_args": {"auth_token": app.config["TURSO_AUTH_TOKEN"]}
+        }
+
     db.init_app(app)
 
     app.register_blueprint(admin_bp)
